@@ -96,7 +96,7 @@
       "name": "Projects",
       "short_name": "Projects",
       "description": "View my development projects",
-      "url": "/index.html#projects",
+      "url": "/projects.html",
       "icons": [
         {
           "src": "icons/projects-96x96.png",
@@ -106,26 +106,26 @@
       ]
     },
     {
-      "name": "Terminal",
-      "short_name": "Terminal",
-      "description": "Interactive terminal experience",
-      "url": "/index.html#terminal",
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn more about me",
+      "url": "/about.html",
       "icons": [
         {
-          "src": "icons/terminal-96x96.png",
+          "src": "icons/about-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
       ]
     },
     {
-      "name": "About",
-      "short_name": "About",
-      "description": "Learn more about me",
-      "url": "/index.html#about",
+      "name": "Pricing",
+      "short_name": "Pricing",
+      "description": "View service pricing",
+      "url": "/pricing.html",
       "icons": [
         {
-          "src": "icons/about-96x96.png",
+          "src": "icons/pricing-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -169,7 +169,6 @@
     "theme"
   ],
   "display_override": [
-    "window-controls-overlay",
     "standalone",
     "minimal-ui"
   ],

@@ -17,9 +17,8 @@ console.log('- themeIcon:', !!themeIcon);
 
 // App State Management
 const appState = {
-    theme: localStorage.getItem('theme') || 'light',
-    openWindows: new Set(),
-    windowPositions: {}
+    theme: localStorage.getItem('theme') || 'dark',
+    openWindows: new Set()
 };
 
 // Simple Navigation System
@@ -37,224 +36,23 @@ function initNavigation() {
     });
 }
 
-// Enhanced Draggable and Resizable Windows System
-function initDraggableWindows() {
+// Prevent drag behavior on window cards
+function preventDragBehavior() {
+    const windowCards = document.querySelectorAll('.window-card');
     windowCards.forEach(card => {
-        let isDragging = false;
-        let isResizing = false;
-        let currentX, currentY, initialX, initialY;
-        let xOffset = 0, yOffset = 0;
-        let initialWidth, initialHeight;
-        let resizeDirection = '';
-
-        // Load saved position
-        const cardId = card.id || `window-${Math.random().toString(36).substr(2, 9)}`;
-        card.id = cardId;
+        // Prevent all drag events
+        card.addEventListener('dragstart', (e) => e.preventDefault());
+        card.addEventListener('dragend', (e) => e.preventDefault());
+        card.addEventListener('dragenter', (e) => e.preventDefault());
+        card.addEventListener('dragover', (e) => e.preventDefault());
+        card.addEventListener('dragleave', (e) => e.preventDefault());
+        card.addEventListener('drop', (e) => e.preventDefault());
         
-        if (appState.windowPositions[cardId]) {
-            const pos = appState.windowPositions[cardId];
-            card.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
-            xOffset = pos.x;
-            yOffset = pos.y;
-        }
-
-        const dragStart = (e) => {
-            if (e.target.classList.contains('resize-handle')) {
-                isResizing = true;
-                resizeDirection = e.target.dataset.direction;
-                initialWidth = card.offsetWidth;
-                initialHeight = card.offsetHeight;
-                initialX = e.clientX;
-                initialY = e.clientY;
-                return;
-            }
-
-            if (e.type === 'touchstart') {
-                initialX = e.touches[0].clientX - xOffset;
-                initialY = e.touches[0].clientY - yOffset;
-            } else {
-                initialX = e.clientX - xOffset;
-                initialY = e.clientY - yOffset;
-            }
-
-            if (e.target === card || card.contains(e.target)) {
-                isDragging = true;
-                card.classList.add('dragging');
-                card.style.zIndex = '1000';
-                card.style.cursor = 'grabbing';
-            }
-        };
-
-        const dragEnd = () => {
-            if (isDragging) {
-                initialX = currentX;
-                initialY = currentY;
-                isDragging = false;
-                card.classList.remove('dragging');
-                card.style.zIndex = '';
-                card.style.cursor = 'grab';
-                
-                // Save position
-                appState.windowPositions[cardId] = { x: xOffset, y: yOffset };
-                localStorage.setItem('windowPositions', JSON.stringify(appState.windowPositions));
-            }
-            
-            if (isResizing) {
-                isResizing = false;
-                resizeDirection = '';
-            }
-            
-            card.style.transition = 'all 0.3s ease';
-            setTimeout(() => {
-                card.style.transition = '';
-            }, 300);
-        };
-
-        const drag = (e) => {
-            if (isDragging) {
-                e.preventDefault();
-
-                if (e.type === 'touchmove') {
-                    currentX = e.touches[0].clientX - initialX;
-                    currentY = e.touches[0].clientY - initialY;
-                } else {
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                }
-
-                xOffset = currentX;
-                yOffset = currentY;
-                setTranslate(currentX, currentY, card);
-            }
-            
-            if (isResizing) {
-                e.preventDefault();
-                const deltaX = e.clientX - initialX;
-                const deltaY = e.clientY - initialY;
-                
-                let newWidth = initialWidth;
-                let newHeight = initialHeight;
-                
-                if (resizeDirection.includes('e')) newWidth += deltaX;
-                if (resizeDirection.includes('w')) newWidth -= deltaX;
-                if (resizeDirection.includes('s')) newHeight += deltaY;
-                if (resizeDirection.includes('n')) newHeight -= deltaY;
-                
-                // Minimum size constraints
-                newWidth = Math.max(300, newWidth);
-                newHeight = Math.max(200, newHeight);
-                
-                card.style.width = `${newWidth}px`;
-                card.style.height = `${newHeight}px`;
-            }
-        };
-
-        const setTranslate = (xPos, yPos, el) => {
-            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-        };
-
-        // Add resize handles
-        addResizeHandles(card);
-
-        // Mouse events
-        card.addEventListener('mousedown', dragStart);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', dragEnd);
-
-        // Touch events for mobile
-        card.addEventListener('touchstart', dragStart);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('touchend', dragEnd);
-
-        // Enhanced Window controls with state management
-        const closeBtn = card.querySelector('.close');
-        const minimizeBtn = card.querySelector('.minimize');
-        const maximizeBtn = card.querySelector('.maximize');
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                card.style.transform = 'scale(0.8) rotate(10deg)';
-                card.style.opacity = '0';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                    appState.openWindows.delete(cardId);
-                }, 400);
-            });
-        }
-
-        if (minimizeBtn) {
-            minimizeBtn.addEventListener('click', () => {
-                card.style.transform = 'scale(0.7) translateY(50px)';
-                card.style.opacity = '0.3';
-                card.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    card.style.transform = 'scale(1) translateY(0)';
-                    card.style.opacity = '1';
-                    card.style.pointerEvents = 'auto';
-                }, 2000);
-            });
-        }
-
-        if (maximizeBtn) {
-            maximizeBtn.addEventListener('click', () => {
-                if (card.classList.contains('maximized')) {
-                    card.classList.remove('maximized');
-                    card.style.transform = 'scale(1)';
-                    card.style.zIndex = '1';
-                    card.style.width = '';
-                    card.style.height = '';
-                } else {
-                    card.classList.add('maximized');
-                    card.style.transform = 'scale(1.3)';
-                    card.style.zIndex = '1000';
-                    card.style.width = '90vw';
-                    card.style.height = '80vh';
-                }
-            });
-        }
-    });
-}
-
-// Add resize handles to windows
-function addResizeHandles(card) {
-    const handles = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
-    handles.forEach(direction => {
-        const handle = document.createElement('div');
-        handle.className = 'resize-handle';
-        handle.dataset.direction = direction;
-        handle.style.cssText = `
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        `;
+        // Prevent context menu
+        card.addEventListener('contextmenu', (e) => e.preventDefault());
         
-        // Position handles
-        switch(direction) {
-            case 'n': handle.style.top = '0'; handle.style.left = '50%'; handle.style.transform = 'translateX(-50%)'; break;
-            case 's': handle.style.bottom = '0'; handle.style.left = '50%'; handle.style.transform = 'translateX(-50%)'; break;
-            case 'e': handle.style.right = '0'; handle.style.top = '50%'; handle.style.transform = 'translateY(-50%)'; break;
-            case 'w': handle.style.left = '0'; handle.style.top = '50%'; handle.style.transform = 'translateY(-50%)'; break;
-            case 'ne': handle.style.top = '0'; handle.style.right = '0'; break;
-            case 'nw': handle.style.top = '0'; handle.style.left = '0'; break;
-            case 'se': handle.style.bottom = '0'; handle.style.right = '0'; break;
-            case 'sw': handle.style.bottom = '0'; handle.style.left = '0'; break;
-        }
-        
-        card.appendChild(handle);
-        
-        // Show handles on hover
-        card.addEventListener('mouseenter', () => {
-            handle.style.opacity = '1';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            handle.style.opacity = '0';
-        });
+        // Prevent text selection
+        card.addEventListener('selectstart', (e) => e.preventDefault());
     });
 }
 
@@ -315,7 +113,7 @@ function initWhatsAppButton() {
         }, 150);
         
         const phoneNumber = '972585115974'; // Dvir's phone number
-        const message = 'Hi! I saw your DeskDev portfolio and would like to discuss a project.';
+        const message = 'Hi Dvir! I saw your DeskDev portfolio and would like to discuss a project.';
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     });
@@ -421,10 +219,10 @@ function loadThemePreference() {
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
     } else {
-        // Default to light theme if no preference saved
-        appState.theme = 'light';
-        document.documentElement.setAttribute('data-theme', 'light');
-        updateThemeIcon('light');
+        // Default to dark theme if no preference saved
+        appState.theme = 'dark';
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeIcon('dark');
     }
 }
 
@@ -461,17 +259,7 @@ function hideAllModals() {
     });
 }
 
-// Load saved window positions
-function loadWindowPositions() {
-    const saved = localStorage.getItem('windowPositions');
-    if (saved) {
-        try {
-            appState.windowPositions = JSON.parse(saved);
-        } catch (e) {
-            console.warn('Failed to load window positions:', e);
-        }
-    }
-}
+
 
 // Initialize all functionality
 function init() {
@@ -485,8 +273,13 @@ function init() {
     initNavigation();
     console.log('Navigation initialized');
     
-    initDraggableWindows();
-    console.log('Draggable windows initialized');
+    // Prevent drag behavior on window cards
+    preventDragBehavior();
+    console.log('Drag behavior prevented');
+    
+    // Draggable windows disabled
+    // initDraggableWindows();
+    console.log('Draggable windows disabled');
     
     initWhatsAppButton();
     console.log('WhatsApp button initialized');
@@ -656,15 +449,7 @@ document.addEventListener('keydown', (e) => {
         }
     }
     
-    // Escape key to close active windows
-    if (e.key === 'Escape') {
-        const activeWindows = document.querySelectorAll('.window-card');
-        activeWindows.forEach(window => {
-            if (window.style.transform.includes('scale(1.2)')) {
-                window.style.transform = 'scale(1)';
-            }
-        });
-    }
+
 }); 
 
 // Test function to manually toggle theme (for debugging)
@@ -683,7 +468,7 @@ function testThemeToggle() {
         updateThemeIcon(newTheme);
     }
     
-    console.log('Theme test completed');
+    console.log('Theme test completed - Dark mode is now default');
 }
 
 // Add test function to window for manual testing

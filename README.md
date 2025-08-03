@@ -1,23 +1,27 @@
-# Portfolio OS - Desktop-Style Portfolio Website
+# DeskDev - Dvir Gordon's Portfolio
 
-A modern, interactive portfolio website designed to look and feel like a desktop operating system. Features draggable windows, a terminal simulation, and a floating WhatsApp contact button.
+A modern, interactive portfolio website designed to look and feel like a desktop operating system. Features beautiful window cards, responsive design, and a floating WhatsApp contact button.
+
+## About
+
+**Dvir Gordon** - 15-year-old dynamic web application designer with a year of experience in coding, specializing in creating user-friendly websites. Skilled in HTML, CSS, and JavaScript.
+
+**Contact:**
+- Email: dvirgodfun@gmail.com
+- Phone: +972 58-511-5974
+- WhatsApp: [Direct Chat](https://wa.me/972585115974)
 
 ## Features
 
 ### 🖥️ Desktop OS Interface
-- **Navigation Bar**: Top navigation with app-like icons for Home, Projects, Terminal, and About
-- **System Controls**: Clock display and system status indicators
+- **Navigation Bar**: Top navigation with app-like icons for Home, Projects, About, and Pricing
+- **System Controls**: Clock display and theme toggle
 - **Responsive Design**: Works on desktop and mobile devices
 
-### 🪟 Draggable Windows
-- **Interactive Cards**: Drag and drop window cards on the dashboard
-- **Window Controls**: Minimize, maximize, and close buttons for each window
+### 🪟 Window Cards
+- **Beautiful Cards**: Elegant window cards on the dashboard
+- **Clean Design**: Simple, modern card layout
 - **Smooth Animations**: Hover effects and smooth transitions
-
-### 💻 Terminal Simulation
-- **Interactive Terminal**: Type commands and see responses
-- **Available Commands**: `help`, `ls`, `cat resume.txt`, `whoami`, `pwd`, `history`
-- **Realistic Experience**: Typing animation and command execution
 
 ### 📱 WhatsApp Integration
 - **Floating Button**: Always-visible WhatsApp contact button
@@ -29,28 +33,22 @@ A modern, interactive portfolio website designed to look and feel like a desktop
 - **Gradient Backgrounds**: Beautiful color gradients throughout
 - **Particle Effects**: Subtle animated background particles
 - **Smooth Transitions**: Page transitions and hover effects
+- **Dark/Light Mode**: Dark mode by default with theme toggle
 
 ## Pages
 
 ### 🏠 Home Dashboard
 - Welcome message with typing animation
-- Draggable window cards showing:
+- Window cards showing:
   - About Me information
-  - Recent Projects
-  - Statistics
   - Contact Information
+  - Recent Projects
 
 ### 📁 Projects
 - Project showcase with detailed cards
 - Technology tags for each project
-- Live demo and GitHub links
+- Live demo links
 - Hover effects and animations
-
-### 💻 Terminal
-- Interactive terminal simulation
-- Command history and responses
-- Realistic terminal styling
-- Educational and entertaining
 
 ### ℹ️ About
 - Professional profile information
@@ -58,22 +56,26 @@ A modern, interactive portfolio website designed to look and feel like a desktop
 - Work experience timeline
 - Skills organized by category
 
+### 💰 Pricing
+- Service packages with pricing
+- Feature lists for each package
+- Contact buttons for inquiries
+- Additional information and terms
+
 ## Getting Started
 
 1. **Download/Clone** the project files
 2. **Open** `index.html` in a web browser
 3. **Navigate** using the top navigation bar
-4. **Interact** with draggable windows on the dashboard
-5. **Try** the terminal commands
-6. **Click** the WhatsApp button to contact
+4. **View** the window cards on the dashboard
+5. **Click** the WhatsApp button to contact
 
 ## Keyboard Shortcuts
 
 - **Ctrl/Cmd + 1**: Navigate to Home
 - **Ctrl/Cmd + 2**: Navigate to Projects
-- **Ctrl/Cmd + 3**: Navigate to Terminal
-- **Ctrl/Cmd + 4**: Navigate to About
-- **Escape**: Close maximized windows
+- **Ctrl/Cmd + 3**: Navigate to About
+- **Ctrl/Cmd + 4**: Navigate to Pricing
 
 ## Customization
 
@@ -90,41 +92,22 @@ Edit the following files to customize your portfolio:
 - **Animations**: Adjust timing and effects
 - **Layout**: Customize grid layouts and spacing
 
-### Terminal Commands
-Add new commands in `script.js`:
-```javascript
-case 'your-command':
-    output = 'Your command response';
-    break;
-```
-
-## Browser Compatibility
-
-- ✅ Chrome (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ⚠️ Internet Explorer (not supported)
-
 ## Technologies Used
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with flexbox and grid
-- **JavaScript (ES6+)**: Interactive functionality
-- **Font Awesome**: Icons
-- **Google Fonts**: Typography
+- **HTML5**: Semantic markup and structure
+- **CSS3**: Modern styling with CSS Grid, Flexbox, and animations
+- **JavaScript**: Interactive functionality and dynamic content
+- **Font Awesome**: Icons and visual elements
+- **PWA**: Progressive Web App features for mobile installation
 
-## Performance Features
+## Browser Support
 
-- **Optimized Animations**: Hardware-accelerated CSS transforms
-- **Efficient Rendering**: Minimal DOM manipulation
-- **Responsive Images**: Optimized for different screen sizes
-- **Smooth Scrolling**: Native browser smooth scrolling
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Contact
+## License
 
-For questions or support, feel free to reach out via the WhatsApp button or email.
-
----
-
-**Note**: This portfolio is designed to showcase your skills in an innovative and memorable way. The desktop OS theme makes it stand out from traditional portfolio websites while maintaining professionalism and usability. 
+This project is created by Dvir Gordon for portfolio purposes. 

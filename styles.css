@@ -632,8 +632,13 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: visible;
-    cursor: grab;
     z-index: 2;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 .window-card::before {
@@ -656,16 +661,9 @@ body::before {
     box-shadow: 0 25px 60px var(--shadow-color);
 }
 
-.window-card.dragging {
-    cursor: grabbing;
-    transform: rotate(2deg) scale(1.02);
-    box-shadow: 0 30px 80px var(--shadow-color);
-}
 
-.window-card.drag-over {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 20px var(--accent-primary);
-}
+
+
 
 .window-header {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
@@ -701,30 +699,7 @@ body::before {
     z-index: 1;
 }
 
-.window-controls {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    display: flex;
-    gap: 8px;
-}
 
-.window-controls span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.minimize { background: #ffbd2e; }
-.maximize { background: #28ca42; }
-.close { background: #ff5f57; }
-
-.window-controls span:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 10px currentColor;
-}
 
 .window-content {
     color: var(--text-primary);
