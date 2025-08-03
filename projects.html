@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - DeskDev Portfolio</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="View Dvir Godrun's web development projects including Day Tracker and Workout Tracker applications.">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="DeskDev">
+    <meta name="msapplication-TileColor" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="shortcut icon" href="/icons/icon-32x32.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Desktop OS Interface -->
+    <div class="desktop">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-user-circle"></i>
+                <span>DeskDev</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="projects.html" class="nav-link active">
+                    <i class="fas fa-folder"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </a>
+                <a href="pricing.html" class="nav-link">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>Pricing</span>
+                </a>
+            </div>
+            <div class="nav-controls">
+                <div class="time" id="time"></div>
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page active">
+                <div class="projects-container">
+                    <h1>My Projects</h1>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Day Tracker</h3>
+                                <p>A comprehensive task management application with streak tracking, daily task management, and calendar view. Features dark mode, task completion tracking, and a beautiful user interface.</p>
+                                <div class="project-tech">
+                                    <span>React</span>
+                                    <span>JavaScript</span>
+                                    <span>CSS3</span>
+                                    <span>LocalStorage</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="https://subtle-monstera-5fd87c.netlify.app/" target="_blank" class="btn-primary">Live Demo</a>
+                                    <a href="https://subtle-monstera-5fd87c.netlify.app/" target="_blank" class="btn-secondary">View Project</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Workout Tracker</h3>
+                                <p>A fitness tracking application designed for Push/Pull/Legs workout routines. Features exercise management, set tracking, volume calculations, and workout history export functionality.</p>
+                                <div class="project-tech">
+                                    <span>React</span>
+                                    <span>JavaScript</span>
+                                    <span>CSS3</span>
+                                    <span>JSON Export</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="https://genuine-pony-6fe236.netlify.app/" target="_blank" class="btn-primary">Live Demo</a>
+                                    <a href="https://genuine-pony-6fe236.netlify.app/" target="_blank" class="btn-secondary">View Project</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>DeskDev Portfolio</h3>
+                                <p>A futuristic desktop-style portfolio built as a Dynamic Web App. Features interactive windows, terminal simulation, dark/light mode, and responsive design with modern web capabilities.</p>
+                                <div class="project-tech">
+                                    <span>HTML5</span>
+                                    <span>CSS3</span>
+                                    <span>JavaScript</span>
+                                    <span>Dynamic Web Apps</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="index.html" class="btn-primary">Live Demo</a>
+                                    <a href="#" class="btn-secondary">View Code</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Floating WhatsApp Button -->
+        <div class="whatsapp-button" id="whatsappButton">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html> 

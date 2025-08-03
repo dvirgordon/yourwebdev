@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevDesk - Offline</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .offline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-primary);
+        }
+
+        .offline-icon {
+            font-size: 120px;
+            color: var(--accent-primary);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .offline-title {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .offline-message {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .offline-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .offline-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .cached-content {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+        }
+
+        .cached-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .cached-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .offline-title {
+                font-size: 2rem;
+            }
+            
+            .offline-message {
+                font-size: 1rem;
+            }
+            
+            .offline-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .offline-btn {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+        
+        <h1 class="offline-title">You're Offline</h1>
+        
+        <p class="offline-message">
+            It looks like you've lost your internet connection. Don't worry! 
+            DevDesk is designed to work offline, so you can still explore my portfolio 
+            and view cached content.
+        </p>
+        
+        <div class="offline-actions">
+            <button class="offline-btn btn-primary" onclick="window.location.reload()">
+                <i class="fas fa-sync-alt"></i>
+                Try Again
+            </button>
+            
+            <a href="/index.html" class="offline-btn btn-secondary">
+                <i class="fas fa-home"></i>
+                Go Home
+            </a>
+        </div>
+        
+        <div class="cached-content">
+            <h3><i class="fas fa-info-circle"></i> What's Available Offline</h3>
+            <p>
+                • Portfolio overview and project details<br>
+                • Interactive terminal experience<br>
+                • About page and skills information<br>
+                • Theme switching and window management<br>
+                • All core functionality of DevDesk
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Check for network connectivity
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.href = '/index.html';
+            }
+        }
+
+        // Listen for online event
+        window.addEventListener('online', checkConnection);
+        
+        // Check connection every 5 seconds
+        setInterval(checkConnection, 5000);
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.offline-container');
+            container.style.animation = 'fadeInUp 0.8s ease forwards';
+        });
+    </script>
+</body>
+</html> 
